@@ -1,0 +1,53 @@
+class BankAccount:
+    def __init__(self, account_number, account_holder, balance=0):
+        self.account_number = account_number
+        self.account_holder = account_holder
+        self.balance = balance
+        self.transaction_history = []
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount
+            self.transaction_history.append(f"Deposited: ${amount}")
+            return f"Deposited ${amount}. New balance: ${self.balance}"
+        return "Invalid deposit amount"
+
+    def withdraw(self, amount):
+        if amount > 0 and amount <= self.balance:
+            self.balance -= amount
+            self.transaction_history.append(f"Withdrawn: ${amount}")
+            return f"Withdrawn ${amount}. New balance: ${self.balance}"
+        return "Insufficient funds or invalid withdrawal amount"
+
+    def get_balance(self):
+        return f"Current balance: ${self.balance}"
+
+    def get_account_info(self):
+        return {
+            "Account Number": self.account_number,
+            "Account Holder": self.account_holder,
+            "Balance": self.balance
+        }
+
+    def view_transaction_history(self):
+        return self.transaction_history
+
+# Example usage
+if __name__ == "__main__":
+    # Create a new bank account
+    account = BankAccount("1234567890", "John Doe", 1000)
+
+    # Perform some transactions
+    print(account.deposit(500))
+    print(account.withdraw(200))
+    print(account.get_balance())
+
+    # View account information
+    print("\nAccount Information:")
+    for key, value in account.get_account_info().items():
+        print(f"{key}: {value}")
+
+    # View transaction history
+    print("\nTransaction History:")
+    for transaction in account.view_transaction_history():
+        print(transaction)
